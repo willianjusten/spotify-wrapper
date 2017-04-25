@@ -1,3 +1,5 @@
+/* to run: babel-node albums.js */
+
 global.fetch = require('node-fetch');
 
 import { searchAlbums } from '../src/main';
