@@ -1,8 +1,8 @@
 {
   "name": "spotify-wrapper",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A wrapper to work with the Spotify Web API.",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "clear": "rimraf lib",
     "build": "npm run clear && ./node_modules/.bin/babel --out-dir lib src",
@@ -15,8 +15,13 @@
     "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register",
     "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register --watch",
     "test:coverage": "nyc npm test",
-    "coveralls": "npm run test:coverage && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "npm run test:coverage && nyc report --reporter=text-lcov | coveralls",
+    "prepublish": "npm run build:all"
   },
+  "files": [
+    "dist",
+    "lib"
+  ],
   "nyc": {
     "reporter": [
       "text",
