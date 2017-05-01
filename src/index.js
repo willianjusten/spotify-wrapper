@@ -11,7 +11,7 @@ import {
   getAlbumTracks,
 } from './album';
 
-module.exports = {
+export default {
   search,
   searchArtists,
   searchAlbums,
