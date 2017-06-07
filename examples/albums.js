@@ -2,7 +2,7 @@
 
 global.fetch = require('node-fetch');
 
-import { searchAlbums } from '../src/main';
+import { searchAlbums } from '../src/index';
 
 const albums = searchAlbums('Incubus');
 
