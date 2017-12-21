@@ -1,1 +1,1 @@
-module.exports = require('./src/index').SpotifyWrapper;
+module.exports = require('./src/index').default;
