@@ -41,9 +41,9 @@ spotify.search.artists('Incubus');
 ### CommonJS
 
 ```js
-const SpotifyWrapper = require('spotify-wrapper');
+const SpotifyWrapper = require('spotify-wrapper').default;
 
-const spotify = new SpotifyWrapper.default({
+const spotify = new SpotifyWrapper({
   token: 'YOUR_TOKEN_HERE'
 });
 ```
