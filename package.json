@@ -1,6 +1,6 @@
 {
   "name": "spotify-wrapper",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A wrapper to work with the Spotify Web API.",
   "main": "lib/index.js",
   "scripts": {
