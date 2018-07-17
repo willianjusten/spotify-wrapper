@@ -1,8 +1,6 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import sinonStubPromise from 'sinon-stub-promise';
-sinonStubPromise(sinon);
 chai.use(sinonChai);
 
 global.fetch = require('node-fetch');
@@ -12,7 +10,6 @@ import SpotifyWrapper from '../src/index';
 describe('Album', () => {
   let spotify;
   let stubedFetch;
-  let promise;
 
   beforeEach( () => {
     spotify = new SpotifyWrapper({
@@ -20,7 +17,11 @@ describe('Album', () => {
     });
 
     stubedFetch = sinon.stub(global, 'fetch');
-    promise = stubedFetch.returnsPromise();
+    stubedFetch.resolves({
+      json: () => {
+        JSON.stringify({ album: 'name' });
+      }
+    });
   });
 
   afterEach( () => {
@@ -58,9 +59,10 @@ describe('Album', () => {
     });
 
     it('should return the correct data from Promise', () => {
-      promise.resolves({ album: 'name'});
       const album = spotify.album.getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
-      expect(album.resolveValue).to.be.eql({ album: 'name'});
+      album.then(data =>
+        expect(data).to.be.eql({ album: 'name' })
+      );
     });
   });
 
