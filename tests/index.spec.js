@@ -1,8 +1,7 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import sinonStubPromise from 'sinon-stub-promise';
-sinonStubPromise(sinon);
+
 chai.use(sinonChai);
 
 global.fetch = require('node-fetch');
@@ -38,11 +37,10 @@ describe('SpotifyWrapper Library', function () {
 
   describe('request method', () => {
     let stubedFetch;
-    let promise;
 
     beforeEach( () => {
       stubedFetch = sinon.stub(global, 'fetch');
-      promise = stubedFetch.returnsPromise();
+      stubedFetch.resolves({ json: () => {} });
     });
 
     afterEach( () => {

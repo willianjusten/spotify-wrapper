@@ -1,8 +1,6 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import sinonStubPromise from 'sinon-stub-promise';
-sinonStubPromise(sinon);
 chai.use(sinonChai);
 
 global.fetch = require('node-fetch');
@@ -16,11 +14,11 @@ describe('Album', () => {
 
   beforeEach( () => {
     spotify = new SpotifyWrapper({
-      token: 'foo'
+      token: 'foo',
     });
 
     stubedFetch = sinon.stub(global, 'fetch');
-    promise = stubedFetch.returnsPromise();
+    promise = stubedFetch.resolves({ json: () => ({ album: 'name' }) });
   });
 
   afterEach( () => {
@@ -58,9 +56,10 @@ describe('Album', () => {
     });
 
     it('should return the correct data from Promise', () => {
-      promise.resolves({ album: 'name'});
       const album = spotify.album.getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
-      expect(album.resolveValue).to.be.eql({ album: 'name'});
+      album.then((data) => {
+        expect(data).to.be.eql({ album: 'name'});
+      })
     });
   });
 
@@ -77,9 +76,10 @@ describe('Album', () => {
     });
 
     it('should return the correct data from Promise', () => {
-      promise.resolves({ album: 'name'});
       const albums = spotify.album.getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTk']);
-      expect(albums.resolveValue).to.be.eql({ album: 'name'});
+      albums.then((data) => {
+        expect(data).to.be.eql({ album: 'name' });
+      });
     });
   });
 
@@ -96,9 +96,10 @@ describe('Album', () => {
     });
 
     it('should return the correct data from Promise', () => {
-      promise.resolves({ album: 'name'});
       const tracks = spotify.album.getTracks('4aawyAB9vmqN3uQ7FjRGTy');
-      expect(tracks.resolveValue).to.be.eql({ album: 'name'});
+      tracks.then((data) => {
+        expect(data).to.be.eql({ album: 'name'});
+      });
     });
   });
 });
